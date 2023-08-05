@@ -7,4 +7,5 @@
   - role: ../roles/ubuntu-pre
   - role: ../roles/crownlabs
     when: crownlabs_mode
+  - role: ../roles/firefox    
   - role: ../roles/ubuntu-post
