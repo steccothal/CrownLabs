@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './theming';
 import App from './App';
 import AuthContextProvider from './contexts/AuthContext';
@@ -7,7 +7,10 @@ import ApolloClientSetup from './graphql-components/apolloClientSetup/ApolloClie
 import TenantContextProvider from './contexts/TenantContext';
 import ErrorContextProvider from './errorHandling/ErrorContext';
 
-ReactDOM.render(
+const domNode = document.getElementById('root');
+const root = createRoot(domNode!);
+
+root.render(
   <React.StrictMode>
     <ErrorContextProvider>
       <AuthContextProvider>
@@ -18,8 +21,7 @@ ReactDOM.render(
         </ApolloClientSetup>
       </AuthContextProvider>
     </ErrorContextProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

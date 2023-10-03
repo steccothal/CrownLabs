@@ -13,8 +13,8 @@ import {
   CreateTemplateMutation,
   useWorkspaceTemplatesQuery,
 } from '../../../generated-types';
-import { FetchResult } from 'apollo-link';
 import { ErrorContext } from '../../../errorHandling/ErrorContext';
+import { FetchResult } from '@apollo/client';
 
 const alternativeHandle = { border: 'solid 2px #1c7afdd8' };
 

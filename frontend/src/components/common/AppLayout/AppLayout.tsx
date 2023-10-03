@@ -1,7 +1,7 @@
 import { InfoOutlined } from '@ant-design/icons';
 import { Col, Layout, Result, Row } from 'antd';
 import { FC, useContext, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { logout } from '../../../contexts/AuthContext';
 import { TenantContext } from '../../../contexts/TenantContext';
 import { PUBLIC_URL } from '../../../env';
@@ -42,10 +42,10 @@ const AppLayout: FC<IAppLayoutProps> = ({ ...props }) => {
         />
         <Content className="flex">
           {tenantNsIsReady ? (
-            <Switch>
+            <Routes>
               {routes.map(r =>
                 r.content ? (
-                  <Route exact key={r.route.path} path={r.route.path}>
+                  <Route key={r.route.path} path={r.route.path}>
                     <Row className="h-full pt-5 xs:pt-10 pb-20 flex w-full px-4">
                       <Col span={0} lg={1} xxl={2}></Col>
                       {r.content}
@@ -63,7 +63,7 @@ const AppLayout: FC<IAppLayoutProps> = ({ ...props }) => {
                   />
                 </div>
               </Route>
-            </Switch>
+            </Routes>
           ) : (
             <FullPageLoader
               text={`Welcome back ${tenantName}!`}

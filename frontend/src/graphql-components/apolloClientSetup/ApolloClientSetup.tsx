@@ -1,10 +1,14 @@
 import { getMainDefinition } from '@apollo/client/utilities';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink, split } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  split,
+  InMemoryCache,
+} from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
 import { FC, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { REACT_APP_CROWNLABS_GRAPHQL_URL } from '../../env';
@@ -33,16 +37,15 @@ const ApolloClientSetup: FC<PropsWithChildren<{}>> = props => {
         },
       });
 
-      const wsLink = new WebSocketLink({
-        uri: wsUri,
-        options: {
-          // Automatic reconnect in case of connection error
-          reconnect: true,
+      const wsLink = new GraphQLWsLink(
+        createClient({
+          url: wsUri,
           connectionParams: {
             authorization: token ? `Bearer ${token}` : '',
           },
-        },
-      });
+          shouldRetry: () => true,
+        })
+      );
 
       const terminatingLink = split(
         ({ query }) => {

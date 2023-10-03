@@ -161,10 +161,10 @@ export type EnvironmentRefInput = {
 };
 
 export enum EnvironmentType {
-  VirtualMachine = 'VirtualMachine',
-  Container = 'Container',
   CloudVm = 'CloudVM',
-  Standalone = 'Standalone'
+  Container = 'Container',
+  Standalone = 'Standalone',
+  VirtualMachine = 'VirtualMachine'
 }
 
 /** ImageListItem describes a single VM image. */
@@ -202,7 +202,7 @@ export type InstanceRefInput = {
 };
 
 /** DeleteOptions may be provided when deleting an API object. */
-export type IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input = {
+export type IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput = {
   /** APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources */
   apiVersion?: Maybe<Scalars['String']>;
   /** When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed */
@@ -228,11 +228,7 @@ export type IoK8sApimachineryPkgApisMetaV1ListMeta = {
   remainingItemCount?: Maybe<Scalars['Float']>;
   /** String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency */
   resourceVersion?: Maybe<Scalars['String']>;
-  /**
-   * selfLink is a URL representing this object. Populated by the system. Read-only.
-   *
-   * DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
-   */
+  /** Deprecated: selfLink is a legacy read-only field that is no longer populated by the system. */
   selfLink?: Maybe<Scalars['String']>;
 };
 
@@ -286,12 +282,10 @@ export type IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryInput = {
 };
 
 /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2 = {
-  __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2';
+export type IoK8sApimachineryPkgApisMetaV1ObjectMeta = {
+  __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta';
   /** Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations */
   annotations?: Maybe<Scalars['JSON']>;
-  /** The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request. */
-  clusterName?: Maybe<Scalars['String']>;
   /** Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers. */
   creationTimestamp?: Maybe<Scalars['String']>;
   /** Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only. */
@@ -303,7 +297,7 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2 = {
   /**
    * GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
    *
-   * If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
+   * If this field is specified and the generated name exists, the server will return a 409.
    *
    * Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
    */
@@ -323,18 +317,14 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2 = {
    */
   namespace?: Maybe<Scalars['String']>;
   /** List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller. */
-  ownerReferences?: Maybe<Array<Maybe<IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2>>>;
+  ownerReferences?: Maybe<Array<Maybe<IoK8sApimachineryPkgApisMetaV1OwnerReference>>>;
   /**
    * An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
    *
    * Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
    */
   resourceVersion?: Maybe<Scalars['String']>;
-  /**
-   * SelfLink is a URL representing this object. Populated by the system. Read-only.
-   *
-   * DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
-   */
+  /** Deprecated: selfLink is a legacy read-only field that is no longer populated by the system. */
   selfLink?: Maybe<Scalars['String']>;
   /**
    * UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
@@ -345,11 +335,9 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2 = {
 };
 
 /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input = {
+export type IoK8sApimachineryPkgApisMetaV1ObjectMetaInput = {
   /** Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations */
   annotations?: Maybe<Scalars['JSON']>;
-  /** The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request. */
-  clusterName?: Maybe<Scalars['String']>;
   /** Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers. */
   creationTimestamp?: Maybe<Scalars['String']>;
   /** Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only. */
@@ -361,7 +349,7 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input = {
   /**
    * GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
    *
-   * If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
+   * If this field is specified and the generated name exists, the server will return a 409.
    *
    * Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
    */
@@ -381,18 +369,14 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input = {
    */
   namespace?: Maybe<Scalars['String']>;
   /** List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller. */
-  ownerReferences?: Maybe<Array<Maybe<IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2Input>>>;
+  ownerReferences?: Maybe<Array<Maybe<IoK8sApimachineryPkgApisMetaV1OwnerReferenceInput>>>;
   /**
    * An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
    *
    * Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
    */
   resourceVersion?: Maybe<Scalars['String']>;
-  /**
-   * SelfLink is a URL representing this object. Populated by the system. Read-only.
-   *
-   * DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
-   */
+  /** Deprecated: selfLink is a legacy read-only field that is no longer populated by the system. */
   selfLink?: Maybe<Scalars['String']>;
   /**
    * UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
@@ -403,11 +387,11 @@ export type IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input = {
 };
 
 /** OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field. */
-export type IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2 = {
-  __typename?: 'IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2';
+export type IoK8sApimachineryPkgApisMetaV1OwnerReference = {
+  __typename?: 'IoK8sApimachineryPkgApisMetaV1OwnerReference';
   /** API version of the referent. */
   apiVersion?: Maybe<Scalars['String']>;
-  /** If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned. */
+  /** If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned. */
   blockOwnerDeletion?: Maybe<Scalars['Boolean']>;
   /** If true, this reference points to the managing controller. */
   controller?: Maybe<Scalars['Boolean']>;
@@ -420,10 +404,10 @@ export type IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2 = {
 };
 
 /** OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field. */
-export type IoK8sApimachineryPkgApisMetaV1OwnerReferenceV2Input = {
+export type IoK8sApimachineryPkgApisMetaV1OwnerReferenceInput = {
   /** API version of the referent. */
   apiVersion: Scalars['String'];
-  /** If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned. */
+  /** If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned. */
   blockOwnerDeletion?: Maybe<Scalars['Boolean']>;
   /** If true, this reference points to the managing controller. */
   controller?: Maybe<Scalars['Boolean']>;
@@ -441,6 +425,27 @@ export type IoK8sApimachineryPkgApisMetaV1PreconditionsInput = {
   resourceVersion?: Maybe<Scalars['String']>;
   /** Specifies the target UID. */
   uid?: Maybe<Scalars['String']>;
+};
+
+/** Status is a return value for calls that don't return other objects. */
+export type IoK8sApimachineryPkgApisMetaV1Status = {
+  __typename?: 'IoK8sApimachineryPkgApisMetaV1Status';
+  /** APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources */
+  apiVersion?: Maybe<Scalars['String']>;
+  /** Suggested HTTP return code for this status, 0 if not set. */
+  code?: Maybe<Scalars['Int']>;
+  /** StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined. */
+  details?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusDetails>;
+  /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
+  kind?: Maybe<Scalars['String']>;
+  /** A human-readable description of the status of this operation. */
+  message?: Maybe<Scalars['String']>;
+  /** ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}. */
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ListMeta>;
+  /** A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it. */
+  reason?: Maybe<Scalars['String']>;
+  /** Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status */
+  status?: Maybe<Scalars['String']>;
 };
 
 /** StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered. */
@@ -461,8 +466,8 @@ export type IoK8sApimachineryPkgApisMetaV1StatusCause = {
 };
 
 /** StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined. */
-export type IoK8sApimachineryPkgApisMetaV1StatusDetailsV2 = {
-  __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusDetailsV2';
+export type IoK8sApimachineryPkgApisMetaV1StatusDetails = {
+  __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusDetails';
   /** The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes. */
   causes?: Maybe<Array<Maybe<IoK8sApimachineryPkgApisMetaV1StatusCause>>>;
   /** The group attribute of the resource associated with the status StatusReason. */
@@ -477,27 +482,6 @@ export type IoK8sApimachineryPkgApisMetaV1StatusDetailsV2 = {
   uid?: Maybe<Scalars['String']>;
 };
 
-/** Status is a return value for calls that don't return other objects. */
-export type IoK8sApimachineryPkgApisMetaV1StatusV2 = {
-  __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusV2';
-  /** APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources */
-  apiVersion?: Maybe<Scalars['String']>;
-  /** Suggested HTTP return code for this status, 0 if not set. */
-  code?: Maybe<Scalars['Int']>;
-  /** StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined. */
-  details?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusDetailsV2>;
-  /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
-  kind?: Maybe<Scalars['String']>;
-  /** A human-readable description of the status of this operation. */
-  message?: Maybe<Scalars['String']>;
-  /** ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ListMeta>;
-  /** A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it. */
-  reason?: Maybe<Scalars['String']>;
-  /** Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status */
-  status?: Maybe<Scalars['String']>;
-};
-
 /** ImageList describes the available VM images in the CrownLabs registry. */
 export type ItPolitoCrownlabsV1alpha1ImageList = {
   __typename?: 'ItPolitoCrownlabsV1alpha1ImageList';
@@ -506,7 +490,7 @@ export type ItPolitoCrownlabsV1alpha1ImageList = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** ImageListSpec is the specification of the desired state of the ImageList. */
   spec?: Maybe<Spec>;
   /** ImageListStatus reflects the most recently observed status of the ImageList. */
@@ -520,7 +504,7 @@ export type ItPolitoCrownlabsV1alpha1ImageListInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** ImageListSpec is the specification of the desired state of the ImageList. */
   spec?: Maybe<SpecInput>;
   /** ImageListStatus reflects the most recently observed status of the ImageList. */
@@ -542,8 +526,8 @@ export type ItPolitoCrownlabsV1alpha1ImageListList = {
 
 export type ItPolitoCrownlabsV1alpha1ImageListUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha1ImageListUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha1ImageList>;
+  updateType?: Maybe<UpdateType>;
 };
 
 /** Workspace describes a workspace in CrownLabs. */
@@ -554,7 +538,7 @@ export type ItPolitoCrownlabsV1alpha1Workspace = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** WorkspaceSpec is the specification of the desired state of the Workspace. */
   spec?: Maybe<Spec2>;
   /** WorkspaceStatus reflects the most recently observed status of the Workspace. */
@@ -568,7 +552,7 @@ export type ItPolitoCrownlabsV1alpha1WorkspaceInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** WorkspaceSpec is the specification of the desired state of the Workspace. */
   spec?: Maybe<Spec2Input>;
   /** WorkspaceStatus reflects the most recently observed status of the Workspace. */
@@ -590,8 +574,8 @@ export type ItPolitoCrownlabsV1alpha1WorkspaceList = {
 
 export type ItPolitoCrownlabsV1alpha1WorkspaceUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha1WorkspaceUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha1Workspace>;
+  updateType?: Maybe<UpdateType>;
 };
 
 /** Instance describes the instance of a CrownLabs environment Template. */
@@ -602,7 +586,7 @@ export type ItPolitoCrownlabsV1alpha2Instance = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** InstanceSpec is the specification of the desired state of the Instance. */
   spec?: Maybe<Spec3>;
   /** InstanceStatus reflects the most recently observed status of the Instance. */
@@ -616,7 +600,7 @@ export type ItPolitoCrownlabsV1alpha2InstanceInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** InstanceSpec is the specification of the desired state of the Instance. */
   spec?: Maybe<Spec3Input>;
   /** InstanceStatus reflects the most recently observed status of the Instance. */
@@ -644,7 +628,7 @@ export type ItPolitoCrownlabsV1alpha2InstanceSnapshot = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** InstanceSnapshotSpec defines the desired state of InstanceSnapshot. */
   spec?: Maybe<Spec4>;
   /** InstanceSnapshotStatus defines the observed state of InstanceSnapshot. */
@@ -658,7 +642,7 @@ export type ItPolitoCrownlabsV1alpha2InstanceSnapshotInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** InstanceSnapshotSpec defines the desired state of InstanceSnapshot. */
   spec?: Maybe<Spec4Input>;
   /** InstanceSnapshotStatus defines the observed state of InstanceSnapshot. */
@@ -680,14 +664,14 @@ export type ItPolitoCrownlabsV1alpha2InstanceSnapshotList = {
 
 export type ItPolitoCrownlabsV1alpha2InstanceSnapshotUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha2InstanceSnapshotUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha2InstanceSnapshot>;
+  updateType?: Maybe<UpdateType>;
 };
 
 export type ItPolitoCrownlabsV1alpha2InstanceUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha2InstanceUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha2Instance>;
+  updateType?: Maybe<UpdateType>;
 };
 
 /** Template describes the template of a CrownLabs environment to be instantiated. */
@@ -698,7 +682,7 @@ export type ItPolitoCrownlabsV1alpha2Template = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** TemplateSpec is the specification of the desired state of the Template. */
   spec?: Maybe<Spec5>;
   /** TemplateStatus reflects the most recently observed status of the Template. */
@@ -712,7 +696,7 @@ export type ItPolitoCrownlabsV1alpha2TemplateInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** TemplateSpec is the specification of the desired state of the Template. */
   spec?: Maybe<Spec5Input>;
   /** TemplateStatus reflects the most recently observed status of the Template. */
@@ -734,8 +718,8 @@ export type ItPolitoCrownlabsV1alpha2TemplateList = {
 
 export type ItPolitoCrownlabsV1alpha2TemplateUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha2TemplateUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha2Template>;
+  updateType?: Maybe<UpdateType>;
 };
 
 /** Tenant describes a user of CrownLabs. */
@@ -746,7 +730,7 @@ export type ItPolitoCrownlabsV1alpha2Tenant = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMeta>;
   /** TenantSpec is the specification of the desired state of the Tenant. */
   spec?: Maybe<Spec6>;
   /** TenantStatus reflects the most recently observed status of the Tenant. */
@@ -760,7 +744,7 @@ export type ItPolitoCrownlabsV1alpha2TenantInput = {
   /** Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds */
   kind?: Maybe<Scalars['String']>;
   /** ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. */
-  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaV2Input>;
+  metadata?: Maybe<IoK8sApimachineryPkgApisMetaV1ObjectMetaInput>;
   /** TenantSpec is the specification of the desired state of the Tenant. */
   spec?: Maybe<Spec6Input>;
   /** TenantStatus reflects the most recently observed status of the Tenant. */
@@ -782,15 +766,15 @@ export type ItPolitoCrownlabsV1alpha2TenantList = {
 
 export type ItPolitoCrownlabsV1alpha2TenantUpdate = {
   __typename?: 'ItPolitoCrownlabsV1alpha2TenantUpdate';
-  updateType?: Maybe<UpdateType>;
   payload?: Maybe<ItPolitoCrownlabsV1alpha2Tenant>;
+  updateType?: Maybe<UpdateType>;
 };
 
 
 export enum Mode {
-  Standard = 'Standard',
   Exam = 'Exam',
-  Exercise = 'Exercise'
+  Exercise = 'Exercise',
+  Standard = 'Standard'
 }
 
 /** The start of any mutation */
@@ -837,73 +821,73 @@ export type Mutation = {
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha1/imagelists
    */
-  deleteCrownlabsPolitoItV1alpha1CollectionImageList?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha1CollectionImageList?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete collection of Workspace
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha1/workspaces
    */
-  deleteCrownlabsPolitoItV1alpha1CollectionWorkspace?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha1CollectionWorkspace?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete an ImageList
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha1/imagelists/{name}
    */
-  deleteCrownlabsPolitoItV1alpha1ImageList?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha1ImageList?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete a Workspace
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha1/workspaces/{name}
    */
-  deleteCrownlabsPolitoItV1alpha1Workspace?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha1Workspace?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete collection of Instance
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/instances
    */
-  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstance?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstance?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete collection of InstanceSnapshot
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/instancesnapshots
    */
-  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceSnapshot?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceSnapshot?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete collection of Template
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/templates
    */
-  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedTemplate?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2CollectionNamespacedTemplate?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete collection of Tenant
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/tenants
    */
-  deleteCrownlabsPolitoItV1alpha2CollectionTenant?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2CollectionTenant?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete an Instance
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/instances/{name}
    */
-  deleteCrownlabsPolitoItV1alpha2NamespacedInstance?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2NamespacedInstance?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete an InstanceSnapshot
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/instancesnapshots/{name}
    */
-  deleteCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshot?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshot?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete a Template
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/namespaces/{namespace}/templates/{name}
    */
-  deleteCrownlabsPolitoItV1alpha2NamespacedTemplate?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2NamespacedTemplate?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * delete a Tenant
    *
    * Equivalent to DELETE /apis/crownlabs.polito.it/v1alpha2/tenants/{name}
    */
-  deleteCrownlabsPolitoItV1alpha2Tenant?: Maybe<IoK8sApimachineryPkgApisMetaV1StatusV2>;
+  deleteCrownlabsPolitoItV1alpha2Tenant?: Maybe<IoK8sApimachineryPkgApisMetaV1Status>;
   /**
    * partially update the specified ImageList
    *
@@ -1053,69 +1037,75 @@ export type Mutation = {
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha1ImageListArgs = {
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1ImageListInput: ItPolitoCrownlabsV1alpha1ImageListInput;
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha1WorkspaceArgs = {
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1WorkspaceInput: ItPolitoCrownlabsV1alpha1WorkspaceInput;
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2InstanceInput: ItPolitoCrownlabsV1alpha2InstanceInput;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2InstanceSnapshotInput: ItPolitoCrownlabsV1alpha2InstanceSnapshotInput;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha2NamespacedTemplateArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2TemplateInput: ItPolitoCrownlabsV1alpha2TemplateInput;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationCreateCrownlabsPolitoItV1alpha2TenantArgs = {
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2TenantInput: ItPolitoCrownlabsV1alpha2TenantInput;
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha1CollectionImageListArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1125,12 +1115,12 @@ export type MutationDeleteCrownlabsPolitoItV1alpha1CollectionImageListArgs = {
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha1CollectionWorkspaceArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1140,37 +1130,37 @@ export type MutationDeleteCrownlabsPolitoItV1alpha1CollectionWorkspaceArgs = {
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha1ImageListArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha1WorkspaceArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1180,13 +1170,13 @@ export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceA
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceSnapshotArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1196,13 +1186,13 @@ export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedInstanceS
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedTemplateArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1212,12 +1202,12 @@ export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionNamespacedTemplateA
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionTenantArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1227,316 +1217,340 @@ export type MutationDeleteCrownlabsPolitoItV1alpha2CollectionTenantArgs = {
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
-  name: Scalars['String'];
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
+  namespace: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotArgs = {
-  name: Scalars['String'];
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
+  namespace: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2NamespacedTemplateArgs = {
-  name: Scalars['String'];
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
+  namespace: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationDeleteCrownlabsPolitoItV1alpha2TenantArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   gracePeriodSeconds?: Maybe<Scalars['Int']>;
+  ioK8sApimachineryPkgApisMetaV1DeleteOptionsInput?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsInput>;
+  name: Scalars['String'];
   orphanDependents?: Maybe<Scalars['Boolean']>;
+  pretty?: Maybe<Scalars['String']>;
   propagationPolicy?: Maybe<Scalars['String']>;
-  ioK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input?: Maybe<IoK8sApimachineryPkgApisMetaV1DeleteOptionsV2Input>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha1ImageListArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha1ImageListStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha1WorkspaceArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha1WorkspaceStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotStatusArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedInstanceStatusArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedTemplateArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2NamespacedTemplateStatusArgs = {
+  applicationApplyPatchYamlInput: Scalars['String'];
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  force?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2TenantArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationPatchCrownlabsPolitoItV1alpha2TenantStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
+  applicationApplyPatchYamlInput: Scalars['String'];
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   force?: Maybe<Scalars['Boolean']>;
-  applicationApplyPatchYamlInput: Scalars['String'];
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha1ImageListArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1ImageListInput: ItPolitoCrownlabsV1alpha1ImageListInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha1ImageListStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1ImageListInput: ItPolitoCrownlabsV1alpha1ImageListInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha1WorkspaceArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1WorkspaceInput: ItPolitoCrownlabsV1alpha1WorkspaceInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha1WorkspaceStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha1WorkspaceInput: ItPolitoCrownlabsV1alpha1WorkspaceInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2InstanceInput: ItPolitoCrownlabsV1alpha2InstanceInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2InstanceInput: ItPolitoCrownlabsV1alpha2InstanceInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2InstanceSnapshotInput: ItPolitoCrownlabsV1alpha2InstanceSnapshotInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2InstanceSnapshotInput: ItPolitoCrownlabsV1alpha2InstanceSnapshotInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotStatusArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2InstanceSnapshotInput: ItPolitoCrownlabsV1alpha2InstanceSnapshotInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2InstanceSnapshotInput: ItPolitoCrownlabsV1alpha2InstanceSnapshotInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedInstanceStatusArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2InstanceInput: ItPolitoCrownlabsV1alpha2InstanceInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2InstanceInput: ItPolitoCrownlabsV1alpha2InstanceInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedTemplateArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2TemplateInput: ItPolitoCrownlabsV1alpha2TemplateInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2TemplateInput: ItPolitoCrownlabsV1alpha2TemplateInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2NamespacedTemplateStatusArgs = {
+  dryRun?: Maybe<Scalars['String']>;
+  fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
+  itPolitoCrownlabsV1alpha2TemplateInput: ItPolitoCrownlabsV1alpha2TemplateInput;
   name: Scalars['String'];
   namespace: Scalars['String'];
   pretty?: Maybe<Scalars['String']>;
-  dryRun?: Maybe<Scalars['String']>;
-  fieldManager?: Maybe<Scalars['String']>;
-  itPolitoCrownlabsV1alpha2TemplateInput: ItPolitoCrownlabsV1alpha2TemplateInput;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2TenantArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2TenantInput: ItPolitoCrownlabsV1alpha2TenantInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 
 /** The start of any mutation */
 export type MutationReplaceCrownlabsPolitoItV1alpha2TenantStatusArgs = {
-  name: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   dryRun?: Maybe<Scalars['String']>;
   fieldManager?: Maybe<Scalars['String']>;
+  fieldValidation?: Maybe<Scalars['String']>;
   itPolitoCrownlabsV1alpha2TenantInput: ItPolitoCrownlabsV1alpha2TenantInput;
+  name: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
 };
 
 /** The namespace containing all CrownLabs related objects of the Workspace. This is the namespace that groups multiple related templates, together with all the accessory resources (e.g. RBACs) created by the tenant operator. */
@@ -1574,15 +1588,15 @@ export type PersonalNamespaceInput = {
 };
 
 export enum Phase {
+  CreationLoopBackoff = 'CreationLoopBackoff',
+  Failed = 'Failed',
   Importing = 'Importing',
-  Starting = 'Starting',
+  Off = 'Off',
+  Ready = 'Ready',
   ResourceQuotaExceeded = 'ResourceQuotaExceeded',
   Running = 'Running',
-  Ready = 'Ready',
-  Stopping = 'Stopping',
-  Off = 'Off',
-  Failed = 'Failed',
-  CreationLoopBackoff = 'CreationLoopBackoff'
+  Starting = 'Starting',
+  Stopping = 'Stopping'
 }
 
 /** The start of any query */
@@ -1727,12 +1741,12 @@ export type QueryItPolitoCrownlabsV1alpha1ImageListArgs = {
 
 /** The start of any query */
 export type QueryItPolitoCrownlabsV1alpha1ImageListListArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1750,12 +1764,12 @@ export type QueryItPolitoCrownlabsV1alpha1WorkspaceArgs = {
 
 /** The start of any query */
 export type QueryItPolitoCrownlabsV1alpha1WorkspaceListArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1822,13 +1836,13 @@ export type QueryItPolitoCrownlabsV1alpha2TemplateArgs = {
 
 /** The start of any query */
 export type QueryItPolitoCrownlabsV1alpha2TemplateListArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1846,12 +1860,12 @@ export type QueryItPolitoCrownlabsV1alpha2TenantArgs = {
 
 /** The start of any query */
 export type QueryItPolitoCrownlabsV1alpha2TenantListArgs = {
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1861,13 +1875,13 @@ export type QueryItPolitoCrownlabsV1alpha2TenantListArgs = {
 
 /** The start of any query */
 export type QueryListCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -1877,13 +1891,13 @@ export type QueryListCrownlabsPolitoItV1alpha2NamespacedInstanceArgs = {
 
 /** The start of any query */
 export type QueryListCrownlabsPolitoItV1alpha2NamespacedInstanceSnapshotArgs = {
-  namespace: Scalars['String'];
-  pretty?: Maybe<Scalars['String']>;
   allowWatchBookmarks?: Maybe<Scalars['Boolean']>;
   continue?: Maybe<Scalars['String']>;
   fieldSelector?: Maybe<Scalars['String']>;
   labelSelector?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  namespace: Scalars['String'];
+  pretty?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
   resourceVersionMatch?: Maybe<Scalars['String']>;
   timeoutSeconds?: Maybe<Scalars['Int']>;
@@ -2227,7 +2241,7 @@ export type Status = {
   namespace?: Maybe<Namespace>;
   /** Whether all subscriptions and resource creations succeeded or an error occurred. In case of errors, the other status fields provide additional information about which problem occurred. */
   ready?: Maybe<Scalars['Boolean']>;
-  /** The list of the subscriptions to external services (e.g. Keycloak, ...), indicating for each one whether it succeeded or an error occurred. */
+  /** The list of the subscriptions to external services (e.g. Keycloak, Nextcloud, ...), indicating for each one whether it succeeded or an error occurred. */
   subscription?: Maybe<Scalars['JSON']>;
 };
 
@@ -2240,6 +2254,8 @@ export type Status2 = {
   initialReadyTime?: Maybe<Scalars['String']>;
   /** The internal IP address associated with the remote environment, which can be used to access it through the SSH protocol (leveraging the SSH bastion in case it is not contacted from another CrownLabs Instance). */
   ip?: Maybe<Scalars['String']>;
+  /** The URL where it is possible to access the persistent drive associated with the instance (in case of container-based environments) */
+  myDriveUrl?: Maybe<Scalars['String']>;
   /** The current status Instance, with reference to the associated environment (e.g. VM). This conveys which resource is being created, as well as whether the associated VM is being scheduled, is running or ready to accept incoming connections. */
   phase?: Maybe<Phase>;
   /** The URL where it is possible to access the remote desktop of the instance (in case of graphical environments) */
@@ -2254,6 +2270,8 @@ export type Status2Input = {
   initialReadyTime?: Maybe<Scalars['String']>;
   /** The internal IP address associated with the remote environment, which can be used to access it through the SSH protocol (leveraging the SSH bastion in case it is not contacted from another CrownLabs Instance). */
   ip?: Maybe<Scalars['String']>;
+  /** The URL where it is possible to access the persistent drive associated with the instance (in case of container-based environments) */
+  myDriveUrl?: Maybe<Scalars['String']>;
   /** The current status Instance, with reference to the associated environment (e.g. VM). This conveys which resource is being created, as well as whether the associated VM is being scheduled, is running or ready to accept incoming connections. */
   phase?: Maybe<Phase>;
   /** The URL where it is possible to access the remote desktop of the instance (in case of graphical environments) */
@@ -2312,23 +2330,29 @@ export type StatusInput = {
   namespace?: Maybe<NamespaceInput>;
   /** Whether all subscriptions and resource creations succeeded or an error occurred. In case of errors, the other status fields provide additional information about which problem occurred. */
   ready?: Maybe<Scalars['Boolean']>;
-  /** The list of the subscriptions to external services (e.g. Keycloak, ...), indicating for each one whether it succeeded or an error occurred. */
+  /** The list of the subscriptions to external services (e.g. Keycloak, Nextcloud, ...), indicating for each one whether it succeeded or an error occurred. */
   subscription?: Maybe<Scalars['JSON']>;
 };
 
 export type Subscription = {
   __typename?: 'Subscription';
-  itPolitoCrownlabsV1alpha2InstanceUpdate?: Maybe<ItPolitoCrownlabsV1alpha2InstanceUpdate>;
+  itPolitoCrownlabsV1alpha1ImageListUpdate?: Maybe<ItPolitoCrownlabsV1alpha1ImageListUpdate>;
+  itPolitoCrownlabsV1alpha1WorkspaceUpdate?: Maybe<ItPolitoCrownlabsV1alpha1WorkspaceUpdate>;
   itPolitoCrownlabsV1alpha2InstanceLabelsUpdate?: Maybe<ItPolitoCrownlabsV1alpha2InstanceUpdate>;
   itPolitoCrownlabsV1alpha2InstanceSnapshotUpdate?: Maybe<ItPolitoCrownlabsV1alpha2InstanceSnapshotUpdate>;
+  itPolitoCrownlabsV1alpha2InstanceUpdate?: Maybe<ItPolitoCrownlabsV1alpha2InstanceUpdate>;
   itPolitoCrownlabsV1alpha2TemplateUpdate?: Maybe<ItPolitoCrownlabsV1alpha2TemplateUpdate>;
   itPolitoCrownlabsV1alpha2TenantUpdate?: Maybe<ItPolitoCrownlabsV1alpha2TenantUpdate>;
-  itPolitoCrownlabsV1alpha1WorkspaceUpdate?: Maybe<ItPolitoCrownlabsV1alpha1WorkspaceUpdate>;
-  itPolitoCrownlabsV1alpha1ImageListUpdate?: Maybe<ItPolitoCrownlabsV1alpha1ImageListUpdate>;
 };
 
 
-export type SubscriptionItPolitoCrownlabsV1alpha2InstanceUpdateArgs = {
+export type SubscriptionItPolitoCrownlabsV1alpha1ImageListUpdateArgs = {
+  name?: Maybe<Scalars['String']>;
+  namespace: Scalars['String'];
+};
+
+
+export type SubscriptionItPolitoCrownlabsV1alpha1WorkspaceUpdateArgs = {
   name?: Maybe<Scalars['String']>;
   namespace: Scalars['String'];
 };
@@ -2345,6 +2369,12 @@ export type SubscriptionItPolitoCrownlabsV1alpha2InstanceSnapshotUpdateArgs = {
 };
 
 
+export type SubscriptionItPolitoCrownlabsV1alpha2InstanceUpdateArgs = {
+  name?: Maybe<Scalars['String']>;
+  namespace: Scalars['String'];
+};
+
+
 export type SubscriptionItPolitoCrownlabsV1alpha2TemplateUpdateArgs = {
   name?: Maybe<Scalars['String']>;
   namespace: Scalars['String'];
@@ -2354,18 +2384,6 @@ export type SubscriptionItPolitoCrownlabsV1alpha2TemplateUpdateArgs = {
 export type SubscriptionItPolitoCrownlabsV1alpha2TenantUpdateArgs = {
   name: Scalars['String'];
   namespace?: Maybe<Scalars['String']>;
-};
-
-
-export type SubscriptionItPolitoCrownlabsV1alpha1WorkspaceUpdateArgs = {
-  name?: Maybe<Scalars['String']>;
-  namespace: Scalars['String'];
-};
-
-
-export type SubscriptionItPolitoCrownlabsV1alpha1ImageListUpdateArgs = {
-  name?: Maybe<Scalars['String']>;
-  namespace: Scalars['String'];
 };
 
 /** The reference to the Template to be instantiated. */
@@ -2416,8 +2434,8 @@ export type TenantV1alpha2Wrapper = {
 
 export enum UpdateType {
   Added = 'ADDED',
-  Modified = 'MODIFIED',
-  Deleted = 'DELETED'
+  Deleted = 'DELETED',
+  Modified = 'MODIFIED'
 }
 
 /** The reference to the Workspace this Template belongs to. */
@@ -2478,7 +2496,7 @@ export type ApplyTemplateMutationVariables = Exact<{
 }>;
 
 
-export type ApplyTemplateMutation = { __typename?: 'Mutation', applyTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', description?: Maybe<string>, name?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', id?: Maybe<string> }> }> };
+export type ApplyTemplateMutation = { __typename?: 'Mutation', applyTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', description?: Maybe<string>, name?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', id?: Maybe<string> }> }> };
 
 export type ApplyTenantMutationVariables = Exact<{
   tenantId: Scalars['String'];
@@ -2487,7 +2505,7 @@ export type ApplyTenantMutationVariables = Exact<{
 }>;
 
 
-export type ApplyTenantMutation = { __typename?: 'Mutation', applyTenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string>, email?: Maybe<string>, lastLogin?: Maybe<string>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string> }>>> }> }> };
+export type ApplyTenantMutation = { __typename?: 'Mutation', applyTenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string>, email?: Maybe<string>, lastLogin?: Maybe<string>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string> }>>> }> }> };
 
 export type CreateInstanceMutationVariables = Exact<{
   tenantNamespace: Scalars['String'];
@@ -2498,7 +2516,7 @@ export type CreateInstanceMutationVariables = Exact<{
 }>;
 
 
-export type CreateInstanceMutation = { __typename?: 'Mutation', createdInstance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> };
+export type CreateInstanceMutation = { __typename?: 'Mutation', createdInstance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> };
 
 export type CreateTemplateMutationVariables = Exact<{
   workspaceId: Scalars['String'];
@@ -2515,7 +2533,7 @@ export type CreateTemplateMutationVariables = Exact<{
 }>;
 
 
-export type CreateTemplateMutation = { __typename?: 'Mutation', createdTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string> }> }> };
+export type CreateTemplateMutation = { __typename?: 'Mutation', createdTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string> }> }> };
 
 export type DeleteInstanceMutationVariables = Exact<{
   tenantNamespace: Scalars['String'];
@@ -2523,7 +2541,7 @@ export type DeleteInstanceMutationVariables = Exact<{
 }>;
 
 
-export type DeleteInstanceMutation = { __typename?: 'Mutation', deletedInstance?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusV2', kind?: Maybe<string> }> };
+export type DeleteInstanceMutation = { __typename?: 'Mutation', deletedInstance?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1Status', kind?: Maybe<string> }> };
 
 export type DeleteLabelSelectorInstancesMutationVariables = Exact<{
   tenantNamespace: Scalars['String'];
@@ -2531,7 +2549,7 @@ export type DeleteLabelSelectorInstancesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteLabelSelectorInstancesMutation = { __typename?: 'Mutation', deleteLabelSelectorInstances?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusV2', kind?: Maybe<string> }> };
+export type DeleteLabelSelectorInstancesMutation = { __typename?: 'Mutation', deleteLabelSelectorInstances?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1Status', kind?: Maybe<string> }> };
 
 export type DeleteTemplateMutationVariables = Exact<{
   workspaceNamespace: Scalars['String'];
@@ -2539,7 +2557,7 @@ export type DeleteTemplateMutationVariables = Exact<{
 }>;
 
 
-export type DeleteTemplateMutation = { __typename?: 'Mutation', deletedTemplate?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1StatusV2', kind?: Maybe<string> }> };
+export type DeleteTemplateMutation = { __typename?: 'Mutation', deletedTemplate?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1Status', kind?: Maybe<string> }> };
 
 export type ImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2551,28 +2569,28 @@ export type OwnedInstancesQueryVariables = Exact<{
 }>;
 
 
-export type OwnedInstancesQuery = { __typename?: 'Query', instanceList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceList', instances?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }>>> }> };
+export type OwnedInstancesQuery = { __typename?: 'Query', instanceList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceList', instances?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }>>> }> };
 
 export type InstancesLabelSelectorQueryVariables = Exact<{
   labels?: Maybe<Scalars['String']>;
 }>;
 
 
-export type InstancesLabelSelectorQuery = { __typename?: 'Query', instanceList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceList', instances?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, tenantCrownlabsPolitoItTenantRef?: Maybe<{ __typename?: 'TenantCrownlabsPolitoItTenantRef', name?: Maybe<string>, tenantV1alpha2Wrapper?: Maybe<{ __typename?: 'TenantV1alpha2Wrapper', itPolitoCrownlabsV1alpha2Tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string> }> }> }> }>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }>>> }> };
+export type InstancesLabelSelectorQuery = { __typename?: 'Query', instanceList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceList', instances?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, tenantCrownlabsPolitoItTenantRef?: Maybe<{ __typename?: 'TenantCrownlabsPolitoItTenantRef', name?: Maybe<string>, tenantV1alpha2Wrapper?: Maybe<{ __typename?: 'TenantV1alpha2Wrapper', itPolitoCrownlabsV1alpha2Tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string> }> }> }> }>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }>>> }> };
 
 export type WorkspaceTemplatesQueryVariables = Exact<{
   workspaceNamespace: Scalars['String'];
 }>;
 
 
-export type WorkspaceTemplatesQuery = { __typename?: 'Query', templateList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TemplateList', templates?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>>, workspaceCrownlabsPolitoItWorkspaceRef?: Maybe<{ __typename?: 'WorkspaceCrownlabsPolitoItWorkspaceRef', name?: Maybe<string> }> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string> }> }>>> }> };
+export type WorkspaceTemplatesQuery = { __typename?: 'Query', templateList?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TemplateList', templates?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>>, workspaceCrownlabsPolitoItWorkspaceRef?: Maybe<{ __typename?: 'WorkspaceCrownlabsPolitoItWorkspaceRef', name?: Maybe<string> }> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string> }> }>>> }> };
 
 export type TenantQueryVariables = Exact<{
   tenantId: Scalars['String'];
 }>;
 
 
-export type TenantQuery = { __typename?: 'Query', tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', email?: Maybe<string>, firstName?: Maybe<string>, lastName?: Maybe<string>, lastLogin?: Maybe<string>, publicKeys?: Maybe<Array<Maybe<string>>>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string>, workspaceWrapperTenantV1alpha2?: Maybe<{ __typename?: 'WorkspaceWrapperTenantV1alpha2', itPolitoCrownlabsV1alpha1Workspace?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha1Workspace', spec?: Maybe<{ __typename?: 'Spec2', prettyName?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status', namespace?: Maybe<{ __typename?: 'Namespace', name?: Maybe<string> }> }> }> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status4', personalNamespace?: Maybe<{ __typename?: 'PersonalNamespace', name?: Maybe<string>, created?: Maybe<boolean> }>, quota?: Maybe<{ __typename?: 'Quota3', cpu?: Maybe<string>, instances?: Maybe<number>, memory?: Maybe<string> }> }> }> };
+export type TenantQuery = { __typename?: 'Query', tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', email?: Maybe<string>, firstName?: Maybe<string>, lastName?: Maybe<string>, lastLogin?: Maybe<string>, publicKeys?: Maybe<Array<Maybe<string>>>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string>, workspaceWrapperTenantV1alpha2?: Maybe<{ __typename?: 'WorkspaceWrapperTenantV1alpha2', itPolitoCrownlabsV1alpha1Workspace?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha1Workspace', spec?: Maybe<{ __typename?: 'Spec2', prettyName?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status', namespace?: Maybe<{ __typename?: 'Namespace', name?: Maybe<string> }> }> }> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status4', personalNamespace?: Maybe<{ __typename?: 'PersonalNamespace', name?: Maybe<string>, created?: Maybe<boolean> }>, quota?: Maybe<{ __typename?: 'Quota3', cpu?: Maybe<string>, instances?: Maybe<number>, memory?: Maybe<string> }> }> }> };
 
 export type TenantsQueryVariables = Exact<{
   labels?: Maybe<Scalars['String']>;
@@ -2580,7 +2598,7 @@ export type TenantsQueryVariables = Exact<{
 }>;
 
 
-export type TenantsQuery = { __typename?: 'Query', tenants?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TenantList', items?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string>, email?: Maybe<string>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string> }>>> }> }>>> }> };
+export type TenantsQuery = { __typename?: 'Query', tenants?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TenantList', items?: Maybe<Array<Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string>, email?: Maybe<string>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string> }>>> }> }>>> }> };
 
 export type UpdatedOwnedInstancesSubscriptionVariables = Exact<{
   tenantNamespace: Scalars['String'];
@@ -2588,14 +2606,14 @@ export type UpdatedOwnedInstancesSubscriptionVariables = Exact<{
 }>;
 
 
-export type UpdatedOwnedInstancesSubscription = { __typename?: 'Subscription', updateInstance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceUpdate', updateType?: Maybe<UpdateType>, instance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> }> };
+export type UpdatedOwnedInstancesSubscription = { __typename?: 'Subscription', updateInstance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceUpdate', updateType?: Maybe<UpdateType>, instance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string>, labels?: Maybe<any> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> }> };
 
 export type UpdatedInstancesLabelSelectorSubscriptionVariables = Exact<{
   labels?: Maybe<Scalars['String']>;
 }>;
 
 
-export type UpdatedInstancesLabelSelectorSubscription = { __typename?: 'Subscription', updateInstanceLabelSelector?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceUpdate', updateType?: Maybe<UpdateType>, instance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, tenantCrownlabsPolitoItTenantRef?: Maybe<{ __typename?: 'TenantCrownlabsPolitoItTenantRef', name?: Maybe<string>, tenantV1alpha2Wrapper?: Maybe<{ __typename?: 'TenantV1alpha2Wrapper', itPolitoCrownlabsV1alpha2Tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string> }> }> }> }>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> }> };
+export type UpdatedInstancesLabelSelectorSubscription = { __typename?: 'Subscription', updateInstanceLabelSelector?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2InstanceUpdate', updateType?: Maybe<UpdateType>, instance?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Instance', metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string>, creationTimestamp?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status2', ip?: Maybe<string>, phase?: Maybe<Phase>, url?: Maybe<string> }>, spec?: Maybe<{ __typename?: 'Spec3', running?: Maybe<boolean>, prettyName?: Maybe<string>, tenantCrownlabsPolitoItTenantRef?: Maybe<{ __typename?: 'TenantCrownlabsPolitoItTenantRef', name?: Maybe<string>, tenantV1alpha2Wrapper?: Maybe<{ __typename?: 'TenantV1alpha2Wrapper', itPolitoCrownlabsV1alpha2Tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', firstName?: Maybe<string>, lastName?: Maybe<string> }> }> }> }>, templateCrownlabsPolitoItTemplateRef?: Maybe<{ __typename?: 'TemplateCrownlabsPolitoItTemplateRef', name?: Maybe<string>, namespace?: Maybe<string>, templateWrapper?: Maybe<{ __typename?: 'TemplateWrapper', itPolitoCrownlabsV1alpha2Template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, environmentType?: Maybe<EnvironmentType> }>>> }> }> }> }> }> }> }> };
 
 export type UpdatedWorkspaceTemplatesSubscriptionVariables = Exact<{
   workspaceNamespace: Scalars['String'];
@@ -2603,14 +2621,14 @@ export type UpdatedWorkspaceTemplatesSubscriptionVariables = Exact<{
 }>;
 
 
-export type UpdatedWorkspaceTemplatesSubscription = { __typename?: 'Subscription', updatedTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TemplateUpdate', updateType?: Maybe<UpdateType>, template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>>, workspaceCrownlabsPolitoItWorkspaceRef?: Maybe<{ __typename?: 'WorkspaceCrownlabsPolitoItWorkspaceRef', name?: Maybe<string> }> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string>, namespace?: Maybe<string> }> }> }> };
+export type UpdatedWorkspaceTemplatesSubscription = { __typename?: 'Subscription', updatedTemplate?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TemplateUpdate', updateType?: Maybe<UpdateType>, template?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Template', spec?: Maybe<{ __typename?: 'Spec5', prettyName?: Maybe<string>, description?: Maybe<string>, environmentList?: Maybe<Array<Maybe<{ __typename?: 'EnvironmentListListItem', guiEnabled?: Maybe<boolean>, persistent?: Maybe<boolean>, resources?: Maybe<{ __typename?: 'Resources', cpu?: Maybe<number>, disk?: Maybe<string>, memory?: Maybe<string> }> }>>>, workspaceCrownlabsPolitoItWorkspaceRef?: Maybe<{ __typename?: 'WorkspaceCrownlabsPolitoItWorkspaceRef', name?: Maybe<string> }> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string>, namespace?: Maybe<string> }> }> }> };
 
 export type UpdatedTenantSubscriptionVariables = Exact<{
   tenantId: Scalars['String'];
 }>;
 
 
-export type UpdatedTenantSubscription = { __typename?: 'Subscription', updatedTenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TenantUpdate', updateType?: Maybe<UpdateType>, tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', email?: Maybe<string>, firstName?: Maybe<string>, lastName?: Maybe<string>, lastLogin?: Maybe<string>, publicKeys?: Maybe<Array<Maybe<string>>>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string>, workspaceWrapperTenantV1alpha2?: Maybe<{ __typename?: 'WorkspaceWrapperTenantV1alpha2', itPolitoCrownlabsV1alpha1Workspace?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha1Workspace', spec?: Maybe<{ __typename?: 'Spec2', prettyName?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status', namespace?: Maybe<{ __typename?: 'Namespace', name?: Maybe<string> }> }> }> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMetaV2', name?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status4', personalNamespace?: Maybe<{ __typename?: 'PersonalNamespace', name?: Maybe<string>, created?: Maybe<boolean> }>, quota?: Maybe<{ __typename?: 'Quota3', cpu?: Maybe<string>, instances?: Maybe<number>, memory?: Maybe<string> }> }> }> }> };
+export type UpdatedTenantSubscription = { __typename?: 'Subscription', updatedTenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2TenantUpdate', updateType?: Maybe<UpdateType>, tenant?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha2Tenant', spec?: Maybe<{ __typename?: 'Spec6', email?: Maybe<string>, firstName?: Maybe<string>, lastName?: Maybe<string>, lastLogin?: Maybe<string>, publicKeys?: Maybe<Array<Maybe<string>>>, workspaces?: Maybe<Array<Maybe<{ __typename?: 'WorkspacesListItem', role?: Maybe<Role>, name?: Maybe<string>, workspaceWrapperTenantV1alpha2?: Maybe<{ __typename?: 'WorkspaceWrapperTenantV1alpha2', itPolitoCrownlabsV1alpha1Workspace?: Maybe<{ __typename?: 'ItPolitoCrownlabsV1alpha1Workspace', spec?: Maybe<{ __typename?: 'Spec2', prettyName?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status', namespace?: Maybe<{ __typename?: 'Namespace', name?: Maybe<string> }> }> }> }> }>>> }>, metadata?: Maybe<{ __typename?: 'IoK8sApimachineryPkgApisMetaV1ObjectMeta', name?: Maybe<string> }>, status?: Maybe<{ __typename?: 'Status4', personalNamespace?: Maybe<{ __typename?: 'PersonalNamespace', name?: Maybe<string>, created?: Maybe<boolean> }>, quota?: Maybe<{ __typename?: 'Quota3', cpu?: Maybe<string>, instances?: Maybe<number>, memory?: Maybe<string> }> }> }> }> };
 
 
 export const ApplyInstanceDocument = gql`
