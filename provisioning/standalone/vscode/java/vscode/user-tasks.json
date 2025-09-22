@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "h2:start",  "type": "shell", "command": "h2-console start",  "problemMatcher": [] },
+    { "label": "h2:stop",   "type": "shell", "command": "h2-console stop",   "problemMatcher": [] },
+    { "label": "h2:status", "type": "shell", "command": "h2-console status", "problemMatcher": [] }
+  ]
+}
